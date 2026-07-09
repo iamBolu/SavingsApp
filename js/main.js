@@ -143,15 +143,43 @@ chips.forEach((chip) => {
   });
 });
 
-// autoplay the first scenario when the panel scrolls into view
+// autoplay the first scenario when the panel becomes visible.
+// Uses both an IntersectionObserver and a scroll fallback, because
+// observers can miss programmatic scrolls and restored scroll positions.
 const chatPanel = document.getElementById('chatPanel');
-const chatIO = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting) {
-    playScenario('airpods');
-    chatIO.disconnect();
-  }
-}, { threshold: 0.3 });
-chatIO.observe(chatPanel);
+let demoPlayed = false;
+
+function panelInView() {
+  const r = chatPanel.getBoundingClientRect();
+  return r.top < window.innerHeight * 0.85 && r.bottom > 0;
+}
+
+function startDemoOnce() {
+  if (demoPlayed) return;
+  demoPlayed = true;
+  window.removeEventListener('scroll', demoScrollCheck);
+  playScenario('airpods');
+}
+
+function demoScrollCheck() {
+  if (panelInView()) startDemoOnce();
+}
+
+if (panelInView()) {
+  startDemoOnce();
+} else {
+  const chatIO = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      startDemoOnce();
+      chatIO.disconnect();
+    }
+  }, { threshold: 0.2 });
+  chatIO.observe(chatPanel);
+  window.addEventListener('scroll', demoScrollCheck, { passive: true });
+}
+
+// a chip click always plays its scenario, so the demo can never dead-end
+chips.forEach((chip) => chip.addEventListener('click', () => { demoPlayed = true; }));
 
 /* ---------- bank theme switcher ---------- */
 const BANK_NAMES = {
