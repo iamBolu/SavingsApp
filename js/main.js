@@ -85,50 +85,32 @@ function clearTimers() {
 const fmtMoney = (n) =>
   '$' + Math.abs(n).toLocaleString('en-CA', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-/* Build a scenario object from a free-typed question. The math uses
-   the same shared facts as the canned scenarios, so answers agree. */
-function buildCustomScenario(question) {
-  const match = question.replace(/,/g, '').match(/\$?\s*(\d+(?:\.\d{1,2})?)/);
-  if (!match) {
-    return {
-      question,
-      verdict: 'Need a price',
-      verdictClass: 'verdict-wait',
-      rows: [['Safe to spend until payday', fmtMoney(SAFE_TO_SPEND), '']],
-      note: 'Add a dollar amount, like “$60”, and I’ll run the honest math against your bills, savings, and payday.',
-    };
-  }
-  const amount = parseFloat(match[1]);
-  const left = SAFE_TO_SPEND - amount;
+/* The landing demo answers free-typed questions with the shared
+   FinanceBrain, run against this demo profile. Numbers match the
+   canned scenarios: safe to spend $1,334.60. */
+const DEMO_PROFILE = {
+  name: 'Demo',
+  balance: 2418.60,
+  paydayDate: '2026-07-17',
+  avgDailySpend: 52,
+  spentToday: 23,
+  bills: [
+    { name: 'Rent share', amount: 520, due: 'Jul 12' },
+    { name: 'Phone', amount: 64, due: 'Jul 13' },
+    { name: 'Internet', amount: 88.01, due: 'Jul 14' },
+    { name: 'Spotify', amount: 11.99, due: 'Jul 14' },
+  ],
+  goal: { name: 'Japan trip', target: 3500, saved: 2150, monthly: 400 },
+  categories: [
+    ['Rent share', 520], ['Groceries', 214], ['Dining and delivery', 187],
+    ['Transport', 96], ['Subscriptions', 64], ['Everything else', 143],
+  ],
+};
 
-  if (left >= 0) {
-    const share = Math.round((amount / SAFE_TO_SPEND) * 100);
-    const comfy = amount <= SAFE_TO_SPEND * 0.5;
-    return {
-      question,
-      verdict: 'Approved',
-      verdictClass: 'verdict-yes',
-      rows: [
-        ['Safe to spend until payday', fmtMoney(SAFE_TO_SPEND), ''],
-        ['This purchase', '−' + fmtMoney(amount), 'amt-neg'],
-        ['Left to spend', fmtMoney(left), 'total'],
-      ],
-      note: comfy
-        ? `That leaves ${fmtMoney(left)} free until payday Friday. Comfortable.`
-        : `That’s ${share}% of your safe-to-spend. Doable, but it thins the cushion to ${fmtMoney(left)} until Friday.`,
-    };
-  }
-  return {
-    question,
-    verdict: 'Wait',
-    verdictClass: 'verdict-wait',
-    rows: [
-      ['Safe to spend until payday', fmtMoney(SAFE_TO_SPEND), ''],
-      ['This purchase', '−' + fmtMoney(amount), 'amt-neg'],
-      ['Shortfall', '−' + fmtMoney(-left), 'total-neg'],
-    ],
-    note: `You’re ${fmtMoney(-left)} short of what’s free right now. Payday lands Friday, Jul 17. Ask me again then.`,
-  };
+function buildCustomScenario(question) {
+  const s = FinanceBrain.answer(DEMO_PROFILE, question);
+  s.question = question;
+  return s;
 }
 
 /* Types the question bubble, shows the thinking dots, then prints

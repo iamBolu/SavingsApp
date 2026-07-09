@@ -9,6 +9,8 @@ Most budgeting apps are rearview mirrors: they show you what you already spent. 
 | File | Purpose |
 |------|---------|
 | `index.html` | Landing page: hero chat demo, how-it-works, app mockup with bank-adaptive theming, data roadmap |
+| `app.html` + `js/app.js` | The app: profile logins (PIN, stored in this browser), setup wizard, personalized dashboard and chat |
+| `js/finance-brain.js` | The assistant's reasoning engine, shared by the landing demo and the app |
 | `logos.html` | Five logo concepts (light + dark) to choose from |
 | `css/styles.css` | Full design system: tokens, type scale, spacing, bank theme palettes |
 | `js/main.js` | Chat demo scenarios, bank theme switcher, mobile nav, scroll reveals |

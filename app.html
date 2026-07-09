@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your money | Ask Before You Spend</title>
+  <meta name="description" content="Your personal affordability assistant. Set up your balance, bills, and goal, then ask anything.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23191713'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='none' stroke='%23FAF6EF' stroke-opacity='0.4'/%3E%3Ctext x='16' y='22.5' font-family='Georgia,serif' font-size='17' font-weight='600' fill='%23E8A33D' text-anchor='middle'%3E%3F%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* app-local layout on top of the shared design system */
+    body { min-height: 100vh; }
+    .app-shell { max-width: 880px; margin: 0 auto; padding: var(--space-6) var(--space-4) var(--space-16); }
+    .screen { display: none; }
+    .screen.is-active { display: block; }
+
+    .app-topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: var(--space-4); padding: var(--space-4) 0 var(--space-6);
+    }
+    .app-topbar .brand { color: var(--text-primary); }
+    .app-topbar .brand-mark { color: var(--ink); }
+    .top-links { display: flex; align-items: center; gap: var(--space-5); font-size: var(--text-sm); }
+    .top-links a, .top-links button {
+      color: var(--text-secondary); text-decoration: none;
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: var(--text-sm); font-weight: 500;
+    }
+    .top-links a:hover, .top-links button:hover { color: var(--text-primary); }
+    #whoami { font-family: var(--font-mono); color: var(--accent); }
+
+    /* auth + setup cards */
+    .panel {
+      background: #FFFDF8; border: 1px solid var(--border); border-radius: 14px;
+      padding: var(--space-8) var(--space-6);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 14px 36px rgba(0,0,0,0.06);
+      max-width: 460px; margin: var(--space-8) auto 0;
+    }
+    .panel h1 { font-size: var(--text-3xl); margin-bottom: var(--space-2); }
+    .panel .sub { color: var(--text-secondary); margin-bottom: var(--space-6); }
+    .field { margin-bottom: var(--space-4); }
+    .field label {
+      display: block; font-family: var(--font-mono); font-size: var(--text-xs);
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: var(--space-2);
+    }
+    .field input {
+      width: 100%; padding: 12px 14px; border-radius: 8px;
+      border: 1px solid var(--border); background: var(--cream);
+      font-family: var(--font-body); font-size: var(--text-base);
+      color: var(--text-primary);
+    }
+    .field input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+    .btn-ink { background: var(--ink); color: var(--cream); width: 100%; text-align: center; }
+    .btn-ink:hover { background: #000; }
+    .panel .switch-mode {
+      margin-top: var(--space-4); text-align: center;
+      font-size: var(--text-sm); color: var(--text-secondary);
+    }
+    .switch-mode button {
+      background: none; border: none; color: var(--accent);
+      font-weight: 600; cursor: pointer; font-size: var(--text-sm);
+      font-family: var(--font-body);
+    }
+    .proto-note {
+      margin-top: var(--space-5); padding-top: var(--space-4);
+      border-top: 1px dashed var(--border);
+      font-size: var(--text-xs); color: var(--text-muted); line-height: 1.6;
+    }
+    .auth-error { color: var(--danger); font-size: var(--text-sm); min-height: 1.4em; margin-bottom: var(--space-2); }
+    .profile-list { display: flex; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-4); }
+    .profile-chip {
+      font-family: var(--font-mono); font-size: var(--text-sm);
+      padding: 8px 16px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--cream);
+      cursor: pointer;
+    }
+    .profile-chip.is-active { background: var(--accent); color: #fff; border-color: var(--accent); }
+
+    /* setup wizard */
+    .setup-panel { max-width: 640px; }
+    .field-row { display: grid; gap: var(--space-3); grid-template-columns: 1fr 1fr; }
+    @media (max-width: 519px) { .field-row { grid-template-columns: 1fr; } }
+    .bill-row { display: grid; grid-template-columns: 2fr 1fr auto; gap: var(--space-2); margin-bottom: var(--space-2); }
+    .bill-row input { width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--border); background: var(--cream); font-family: var(--font-body); }
+    .bill-remove { background: none; border: 1px solid var(--border); border-radius: 8px; width: 40px; cursor: pointer; color: var(--text-muted); }
+    .bill-remove:hover { color: var(--danger); border-color: var(--danger); }
+    .add-bill { background: none; border: none; color: var(--accent); font-weight: 600; cursor: pointer; font-family: var(--font-body); padding: 0; margin: var(--space-2) 0 var(--space-5); }
+    .setup-section {
+      font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600;
+      margin: var(--space-6) 0 var(--space-4); padding-top: var(--space-5);
+      border-top: 1px solid var(--border);
+    }
+    .setup-section:first-of-type { border-top: none; margin-top: 0; padding-top: 0; }
+
+    /* dashboard */
+    .dash-grid { display: grid; gap: var(--space-4); }
+    @media (min-width: 720px) { .dash-grid { grid-template-columns: 1fr 1fr; } }
+    .dash-card {
+      background: #FFFDF8; border: 1px solid var(--border); border-radius: 14px;
+      padding: var(--space-5) var(--space-6);
+    }
+    .dash-label {
+      font-family: var(--font-mono); font-size: var(--text-xs);
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+      margin-bottom: var(--space-2);
+    }
+    .dash-big {
+      font-family: var(--font-mono); font-size: var(--text-4xl); font-weight: 600;
+      letter-spacing: -0.02em; color: var(--success);
+    }
+    .dash-sub { font-size: var(--text-sm); color: var(--text-secondary); margin-top: var(--space-2); }
+    .goal-track { height: 8px; border-radius: 999px; background: var(--accent-soft); margin: var(--space-3) 0 var(--space-2); overflow: hidden; }
+    .goal-fill { height: 100%; border-radius: 999px; background: var(--accent); }
+
+    /* daily tip banner */
+    .tip-banner {
+      display: flex; align-items: baseline; gap: var(--space-3);
+      background: var(--accent-soft); border: 1px solid var(--accent);
+      border-radius: 12px; padding: var(--space-4) var(--space-5);
+      margin: var(--space-4) 0;
+    }
+    .tip-banner strong { font-family: var(--font-display); }
+    .tip-banner p { font-size: var(--text-sm); color: var(--text-secondary); }
+
+    /* chat reuses the shared receipt styles; panel gets breathing room */
+    .app-chat { margin-top: var(--space-6); }
+    .greeting { font-family: var(--font-display); font-size: var(--text-2xl); margin-bottom: var(--space-1); }
+    .greet-sub { color: var(--text-secondary); margin-bottom: var(--space-6); }
+    .edit-link { font-size: var(--text-sm); }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    <div class="app-topbar">
+      <a class="brand" href="index.html" aria-label="Back to the Ask Before You Spend site">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="16" cy="16" r="9.5" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+          <text x="16" y="21.5" font-family="Fraunces, Georgia, serif" font-size="15" font-weight="600" fill="#C75B12" text-anchor="middle">?</text>
+        </svg>
+        <span class="brand-name">Ask Before You Spend</span>
+      </a>
+      <div class="top-links">
+        <span id="whoami"></span>
+        <button id="editProfileBtn" hidden>Edit numbers</button>
+        <button id="logoutBtn" hidden>Log out</button>
+        <a href="index.html">Site</a>
+      </div>
+    </div>
+
+    <!-- ============ AUTH ============ -->
+    <section class="screen" id="authScreen">
+      <div class="panel">
+        <h1 id="authTitle">Welcome back.</h1>
+        <p class="sub" id="authSub">Pick your profile and enter your PIN.</p>
+
+        <div class="profile-list" id="profileList"></div>
+
+        <form id="authForm">
+          <div class="field" id="nameField" hidden>
+            <label for="authName">Your first name</label>
+            <input id="authName" type="text" maxlength="24" autocomplete="off" placeholder="Bolu">
+          </div>
+          <div class="field">
+            <label for="authPin">4-digit PIN</label>
+            <input id="authPin" type="password" inputmode="numeric" maxlength="4" pattern="\d{4}" placeholder="••••">
+          </div>
+          <p class="auth-error" id="authError"></p>
+          <button class="btn btn-ink" type="submit" id="authSubmit">Log in</button>
+        </form>
+
+        <p class="switch-mode" id="switchMode">
+          New here? <button type="button" id="modeToggle">Create a profile</button>
+        </p>
+
+        <p class="proto-note">Stage 1 prototype: your profile and numbers are stored only in this browser, on this device. Nothing is sent anywhere. Real synced accounts arrive with the live bank connection in stage 3.</p>
+      </div>
+    </section>
+
+    <!-- ============ SETUP ============ -->
+    <section class="screen" id="setupScreen">
+      <div class="panel setup-panel">
+        <h1>Your numbers.</h1>
+        <p class="sub">Two minutes, once. The assistant reasons from these, and you can edit them any time.</p>
+
+        <form id="setupForm">
+          <p class="setup-section">Money in the account</p>
+          <div class="field-row">
+            <div class="field">
+              <label for="setBalance">Current balance ($)</label>
+              <input id="setBalance" type="number" step="0.01" min="0" required placeholder="2400">
+            </div>
+            <div class="field">
+              <label for="setDaily">Typical daily spending ($)</label>
+              <input id="setDaily" type="number" step="1" min="1" required placeholder="45">
+            </div>
+          </div>
+          <div class="field">
+            <label for="setPayday">Next payday</label>
+            <input id="setPayday" type="date" required>
+          </div>
+
+          <p class="setup-section">Bills due before payday</p>
+          <div id="billRows"></div>
+          <button type="button" class="add-bill" id="addBill">+ Add another bill</button>
+
+          <p class="setup-section">Savings goal</p>
+          <div class="field-row">
+            <div class="field">
+              <label for="setGoalName">What you're saving for</label>
+              <input id="setGoalName" type="text" maxlength="30" required placeholder="Japan trip">
+            </div>
+            <div class="field">
+              <label for="setGoalTarget">Target ($)</label>
+              <input id="setGoalTarget" type="number" step="1" min="1" required placeholder="3500">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="setGoalSaved">Saved so far ($)</label>
+              <input id="setGoalSaved" type="number" step="1" min="0" required placeholder="0">
+            </div>
+            <div class="field">
+              <label for="setGoalMonthly">Monthly transfer ($)</label>
+              <input id="setGoalMonthly" type="number" step="1" min="1" required placeholder="200">
+            </div>
+          </div>
+
+          <button class="btn btn-ink" type="submit">Start asking</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ DASHBOARD ============ -->
+    <section class="screen" id="dashScreen">
+      <h1 class="greeting" id="greeting"></h1>
+      <p class="greet-sub" id="greetSub"></p>
+
+      <div class="dash-grid">
+        <div class="dash-card">
+          <p class="dash-label">Safe to spend until payday</p>
+          <p class="dash-big" id="dashSafe"></p>
+          <p class="dash-sub" id="dashSafeSub"></p>
+        </div>
+        <div class="dash-card">
+          <p class="dash-label" id="dashGoalLabel"></p>
+          <div class="goal-track"><div class="goal-fill" id="goalFill"></div></div>
+          <p class="dash-sub" id="dashGoalSub"></p>
+        </div>
+      </div>
+
+      <div class="tip-banner" id="tipBanner">
+        <strong id="tipTitle"></strong>
+        <p id="tipBody"></p>
+      </div>
+
+      <!-- chat: same receipt components as the landing demo -->
+      <div class="chat-panel app-chat">
+        <div class="chat-titlebar">
+          <span class="chat-dot"></span>
+          <span class="chat-title" id="chatBalance"></span>
+          <span class="chat-payday" id="chatPayday"></span>
+        </div>
+        <div class="chat-body" id="chatBody" aria-live="polite"></div>
+        <form class="ask-form" id="askForm" autocomplete="off">
+          <input class="ask-input" id="askInput" type="text" maxlength="120"
+                 placeholder="Can I afford $80 tonight? How are my savings?"
+                 aria-label="Ask your finance assistant anything">
+          <button class="btn ask-btn" type="submit">Ask</button>
+        </form>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/finance-brain.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
