@@ -1,5 +1,5 @@
 /* ================================================================
-   ASK BEFORE YOU SPEND — design system
+   ASK BEFORE YOU SPEND: design system
    Editorial finance: cream + ink + one ember accent.
    Fraunces (display) · Figtree (body) · JetBrains Mono (money)
    ================================================================ */
@@ -10,7 +10,7 @@
   --ink-soft: #262320;
   --cream: #FAF6EF;
   --cream-raised: #F3EDE2;
-  --accent: #C75B12;          /* ember — the single brand accent */
+  --accent: #C75B12;          /* ember, the single brand accent */
   --accent-soft: #E8DECF;
   --text-primary: #1C1A16;
   --text-secondary: #5C574E;
@@ -231,7 +231,7 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
   .nav-toggle { display: none; }
 }
 
-/* ---------- hero — cinematic full-bleed photo ---------- */
+/* ---------- hero: cinematic full-bleed photo ---------- */
 .hero {
   background: var(--ink); /* shows while the photo loads, and if it ever fails */
   color: var(--text-on-ink);
@@ -565,7 +565,7 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
   font-weight: 600;
 }
 
-/* the mock app window — bank vars scoped here */
+/* the mock app window; bank vars scoped here */
 .app-mock {
   --brand: #1A2B4A;
   --brand-accent: #B08D2E;
@@ -583,7 +583,7 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
 .app-mock[data-bank="scotia"]    { --brand: #EC111A; --brand-accent: #1A1A1A; }
 .app-mock[data-bank="tangerine"] { --brand: #FF6600; --brand-accent: #1A1A1A; }
 .app-mock[data-bank="chase"]     { --brand: #117ACA; --brand-accent: #1A1A1A; }
-.app-mock[data-bank="cibc"]      { --brand: #C41F3E; --brand-accent: #6E2585; } /* purple is CIBC brand — the one sanctioned exception */
+.app-mock[data-bank="cibc"]      { --brand: #C41F3E; --brand-accent: #6E2585; } /* purple is CIBC brand, the one sanctioned exception */
 
 .mock-topbar {
   display: flex;

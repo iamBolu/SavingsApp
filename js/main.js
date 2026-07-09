@@ -1,4 +1,4 @@
-/* Ask Before You Spend — landing interactions */
+/* Ask Before You Spend: landing interactions */
 
 /* ---------- mobile nav ---------- */
 const navToggle = document.getElementById('navToggle');
@@ -31,7 +31,7 @@ document.querySelectorAll('.reveal').forEach((el) => io.observe(el));
 const SCENARIOS = {
   airpods: {
     question: 'Can I afford new AirPods this weekend? They’re $329.',
-    verdict: 'Yes — comfortably.',
+    verdict: 'Yes, comfortably.',
     verdictClass: 'verdict-yes',
     rows: [
       ['Current balance', '$2,418.60', ''],
@@ -43,8 +43,8 @@ const SCENARIOS = {
     note: 'Buying them today still leaves you $1,005.60 of free money until payday Friday. Enjoy the noise cancelling.',
   },
   dinner: {
-    question: 'Dinner out with friends tonight — about $85. Am I good?',
-    verdict: 'Yes — easily.',
+    question: 'Dinner out with friends tonight, about $85. Am I good?',
+    verdict: 'Yes, easily.',
     verdictClass: 'verdict-yes',
     rows: [
       ['Safe to spend until payday', '$1,334.60', ''],
@@ -55,14 +55,14 @@ const SCENARIOS = {
   },
   flight: {
     question: 'Flights to Tokyo dropped to $1,429. Should I grab one now?',
-    verdict: 'Not yet — wait for Friday.',
+    verdict: 'Not yet. Wait for Friday.',
     verdictClass: 'verdict-wait',
     rows: [
       ['Safe to spend until payday', '$1,334.60', ''],
       ['Flight', '−$1,429.00', 'amt-neg'],
       ['Shortfall', '−$94.40', 'total-neg'],
     ],
-    note: 'It’s $94.40 more than what’s free right now. Payday lands Friday — or, since this IS the Japan trip, you could cover it from the $2,150 you’ve already saved.',
+    note: 'It’s $94.40 more than what’s free right now. Payday lands Friday. Or, since this IS the Japan trip, you could cover it from the $2,150 you’ve already saved.',
   },
 };
 
