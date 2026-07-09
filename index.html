@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Ask Before You Spend — Can I afford this?</title>
   <meta name="description" content="A personal finance assistant that answers one question — can I afford this? — before you spend, not after.">
+  <meta property="og:title" content="Ask Before You Spend">
+  <meta property="og:description" content="Can I afford this? Get a real answer — with the math shown — before the money leaves your account.">
+  <meta property="og:type" content="website">
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=2000&q=70">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23191713'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='none' stroke='%23FAF6EF' stroke-opacity='0.4'/%3E%3Ctext x='16' y='22.5' font-family='Georgia,serif' font-size='17' font-weight='600' fill='%23E8A33D' text-anchor='middle'%3E%3F%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +33,7 @@
         <a href="#questions">What you can ask</a>
         <a href="#app">The app</a>
         <a href="#roadmap">Roadmap</a>
-        <a class="nav-cta" href="#cta">Try the demo</a>
+        <a class="nav-cta" href="#demo">Try the demo</a>
       </nav>
       <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
         <span></span><span></span>
@@ -37,20 +41,24 @@
     </div>
   </header>
 
-  <!-- ============ HERO ============ -->
+  <!-- ============ HERO — cinematic, full-bleed photo ============ -->
   <section class="hero" id="top">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow reveal">◆&nbsp;&nbsp;Your money, consulted first</p>
-        <h1 class="reveal d1">Ask before<br>you spend.</h1>
-        <p class="hero-sub reveal d2">Most budgeting apps tell you what you already spent. This one answers the only question that matters — <em>can I afford this?</em> — before the money leaves your account.</p>
-        <div class="hero-actions reveal d3">
-          <a class="btn btn-light" href="#cta">Try the demo</a>
-          <a class="btn btn-ghost" href="#how">See how it thinks</a>
-        </div>
+    <!-- photo + warm scrim live in their own layer so text stays legible -->
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="container hero-inner">
+      <p class="eyebrow reveal">◆&nbsp;&nbsp;Your money, consulted first</p>
+      <h1 class="reveal d1">Ask before you spend.</h1>
+      <p class="hero-sub reveal d2">Most budgeting apps tell you what you already spent. This one answers the only question that matters — <em>can I afford this?</em> — before the money leaves your account.</p>
+      <div class="hero-actions reveal d3">
+        <a class="btn btn-light" href="#demo">Try the demo</a>
+        <a class="btn btn-ghost" href="#how">See how it thinks</a>
       </div>
+    </div>
+  </section>
 
-      <!-- Live chat demo -->
+  <!-- Live chat demo — overlaps the bottom of the hero photo -->
+  <div class="hero-demo" id="demo">
+    <div class="container">
       <div class="chat-panel reveal d2" id="chatPanel">
         <div class="chat-titlebar">
           <span class="chat-dot"></span>
@@ -67,7 +75,7 @@
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
   <!-- ============ THE FLIP ============ -->
   <section class="section section-cream" id="how">
@@ -209,7 +217,7 @@
     <div class="container cta-inner">
       <h2>The next time your thumb<br>hovers over “Buy now” —</h2>
       <p class="lede lede-light">ask first. It takes four seconds and it knows about your rent.</p>
-      <a class="btn btn-light btn-lg" href="#top">Try the demo</a>
+      <a class="btn btn-light btn-lg" href="#demo">Try the demo</a>
     </div>
   </section>
 

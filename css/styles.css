@@ -231,13 +231,29 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
   .nav-toggle { display: none; }
 }
 
-/* ---------- hero ---------- */
+/* ---------- hero — cinematic full-bleed photo ---------- */
 .hero {
-  background: var(--ink);
+  background: var(--ink); /* shows while the photo loads, and if it ever fails */
   color: var(--text-on-ink);
-  padding: var(--space-16) 0 var(--space-20);
+  padding: var(--space-20) 0 calc(var(--space-24) + 120px);
   position: relative;
   overflow: hidden;
+  text-align: center;
+}
+/* the photograph, with a warm scrim that keeps headline contrast
+   and melts the bottom edge into ink so the chat panel can overlap */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to bottom,
+      rgba(25, 23, 19, 0.62) 0%,
+      rgba(25, 23, 19, 0.30) 38%,
+      rgba(25, 23, 19, 0.55) 72%,
+      var(--ink) 100%),
+    url("https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=2000&q=70");
+  background-size: cover;
+  background-position: center 30%;
 }
 /* faint grain so the ink doesn't feel flat */
 .hero::after, .section-ink::after {
@@ -248,22 +264,25 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
   opacity: 0.35;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-.hero-grid {
+.hero-inner {
   position: relative;
   z-index: 1;
-  display: grid;
-  gap: var(--space-12);
+  max-width: 780px;
 }
 @media (min-width: 980px) {
-  .hero { padding: var(--space-24) 0; }
-  .hero-grid { grid-template-columns: 1.05fr 0.95fr; align-items: center; gap: var(--space-16); }
+  .hero { padding: calc(var(--space-24) + var(--space-8)) 0 calc(var(--space-24) + 160px); }
 }
-.hero h1 { color: var(--cream); margin-top: var(--space-5); }
+.hero h1 {
+  color: var(--cream);
+  margin-top: var(--space-5);
+  text-shadow: 0 2px 24px rgba(25, 23, 19, 0.45);
+}
 .hero-sub {
   font-size: var(--text-lg);
-  color: var(--text-on-ink-dim);
-  max-width: 44ch;
-  margin-top: var(--space-6);
+  color: rgba(250, 246, 239, 0.88);
+  max-width: 52ch;
+  margin: var(--space-6) auto 0;
+  text-shadow: 0 1px 12px rgba(25, 23, 19, 0.5);
 }
 .hero-sub em {
   font-family: var(--font-display);
@@ -273,11 +292,28 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--space-4);
   margin-top: var(--space-8);
 }
 @media (max-width: 479px) {
   .hero-actions .btn { width: 100%; text-align: center; }
+}
+
+/* the demo panel rides up over the hero's melted bottom edge */
+.hero-demo {
+  position: relative;
+  z-index: 2;
+  margin-top: -120px; /* pulls the panel up over the photo's melted edge */
+  scroll-margin-top: 88px;
+}
+.hero-demo .chat-panel {
+  max-width: 760px;
+  margin: 0 auto;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.25), 0 32px 80px rgba(25,23,19,0.35);
+}
+@media (min-width: 980px) {
+  .hero-demo { margin-top: -160px; }
 }
 
 /* ---------- chat demo ---------- */
@@ -408,10 +444,13 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
 @keyframes pulse { 50% { opacity: 0.25; transform: translateY(-2px); } }
 
 /* ---------- sections ---------- */
-.section { padding: var(--space-16) 0; position: relative; }
+.section {
+  padding: var(--space-16) 0;
+  position: relative;
+  scroll-margin-top: 64px; /* keeps anchored headings clear of the sticky header */
+}
 @media (min-width: 768px) { .section { padding: var(--space-24) 0; } }
 .section-tight { padding-top: 0; }
-@media (min-width: 768px) { .section-tight { padding-top: 0; } }
 .section-cream { background: var(--cream); }
 .section-ink {
   background: var(--ink);
@@ -537,7 +576,6 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.25), 0 24px 60px rgba(0,0,0,0.35);
-  transition: --brand 0.3s;
 }
 .app-mock[data-bank="rbc"]       { --brand: #003168; --brand-accent: #FFBE00; }
 .app-mock[data-bank="td"]        { --brand: #00A650; --brand-accent: #1A1A1A; }
