@@ -1,7 +1,7 @@
 /* ================================================================
    ASK BEFORE YOU SPEND: design system
    Editorial finance: cream + ink + one ember accent.
-   Fraunces (display) · Figtree (body) · JetBrains Mono (money)
+   Fraunces (display) · Instrument Sans (body) · JetBrains Mono (money)
    ================================================================ */
 
 :root {
@@ -896,6 +896,7 @@ h3 { font-size: var(--text-xl); font-weight: 600; }
 }
 .section-ink.has-ghost::before { color: rgba(250, 246, 239, 0.05); }
 .has-ghost > .container { position: relative; z-index: 1; }
+.has-ghost { overflow-x: clip; } /* the numeral bleeds off-edge without causing scroll */
 
 /* ---------- manifesto ---------- */
 .manifesto {
@@ -1007,4 +1008,103 @@ html[data-bank="cibc"]      { --accent: #C41F3E; }
   .hero-mist { animation: none; }
   .hero-bg, .hero-mist { transform: none !important; }
   .verdict { animation: none; }
+}
+
+/* ================================================================
+   EDITORIAL LUXURY LAYER: side rail, gridlines, circle CTAs,
+   larger display scale
+   ================================================================ */
+
+/* ---------- fixed vertical brand rail (wide desktop only) ---------- */
+.side-rail {
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 64px;
+  z-index: 55;
+  pointer-events: none;
+  /* one mid-tone reads acceptably on both cream and ink sections */
+  color: #8A8478;
+}
+@media (min-width: 1360px) {
+  .side-rail {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 96px 0 40px;
+  }
+}
+.rail-brand, .rail-clock {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.rail-dim { opacity: 0.55; }
+
+/* ---------- faint architectural gridlines ---------- */
+.gridlines {
+  position: fixed;
+  inset: 0;
+  z-index: 40; /* under the sticky header (50), over section backgrounds */
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, rgba(138, 132, 120, 0.13) 1px, transparent 1px),
+    linear-gradient(to right, rgba(138, 132, 120, 0.13) 1px, transparent 1px),
+    linear-gradient(to right, rgba(138, 132, 120, 0.13) 1px, transparent 1px);
+  background-size: 1px 100%, 1px 100%, 1px 100%;
+  background-position: 25% 0, 50% 0, 75% 0;
+  background-repeat: no-repeat;
+}
+@media (max-width: 899px) { .gridlines { display: none; } }
+
+/* ---------- circle-arrow CTA ---------- */
+.cta-circle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: var(--text-base);
+  color: inherit;
+}
+.cta-circle .circle {
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.3, 1.2), background 0.2s ease;
+}
+.cta-circle .circle svg { width: 20px; height: 20px; transition: transform 0.25s ease; }
+.cta-circle:hover .circle {
+  transform: scale(1.12);
+  background: color-mix(in srgb, var(--accent) 82%, black);
+}
+.cta-circle:hover .circle svg { transform: translateX(2px); }
+.cta-circle-dark { color: var(--text-primary); }
+.leak-cta { margin-top: var(--space-6); }
+.manifesto .cta-circle { margin-top: var(--space-10); }
+
+/* ---------- larger cinematic display scale on wide screens ---------- */
+@media (min-width: 1100px) {
+  .hero h1 {
+    font-size: clamp(4.25rem, 5.5vw, 5.25rem);
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+  }
+  h2 { font-size: var(--text-5xl); }
+  .manifesto-quote { font-size: 3.25rem; }
 }

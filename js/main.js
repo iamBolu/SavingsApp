@@ -314,3 +314,23 @@ if (heroBg && motionOK) {
     }
   }, { passive: true });
 }
+
+/* ---------- side rail live clock ----------
+   Mirrors the fixed rail: long-form date on one line,
+   year and 24h time on the other. Updates every 30 seconds. */
+const railDate = document.getElementById('railDate');
+const railTime = document.getElementById('railTime');
+
+function updateRailClock() {
+  if (!railDate || !railTime) return;
+  const now = new Date();
+  railDate.textContent = now.toLocaleDateString('en-CA', {
+    weekday: 'long', month: 'long', day: 'numeric',
+  });
+  const hh = String(now.getHours()).padStart(2, '0');
+  const mm = String(now.getMinutes()).padStart(2, '0');
+  railTime.textContent = `${now.getFullYear()} · ${hh}:${mm}`;
+}
+
+updateRailClock();
+setInterval(updateRailClock, 30000);

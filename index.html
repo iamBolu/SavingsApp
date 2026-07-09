@@ -18,6 +18,20 @@
 </head>
 <body>
 
+  <!-- fixed editorial furniture: vertical brand rail with live clock,
+       and faint full-height gridlines (desktop only) -->
+  <aside class="side-rail" aria-hidden="true">
+    <div class="rail-brand">
+      <span>Ask Before You Spend</span>
+      <span class="rail-dim">Personal finance</span>
+    </div>
+    <div class="rail-clock">
+      <span id="railDate"></span>
+      <span class="rail-dim" id="railTime"></span>
+    </div>
+  </aside>
+  <div class="gridlines" aria-hidden="true"></div>
+
   <!-- ============ HEADER ============ -->
   <header class="site-header">
     <div class="container header-inner">
@@ -54,7 +68,10 @@
       <p class="hero-sub reveal d2">Most budgeting apps tell you what you already spent. This one answers the only question that matters: <em>can I afford this?</em> And it answers before the money leaves your account.</p>
       <div class="hero-actions reveal d3">
         <a class="btn btn-light" href="#demo">Try the demo</a>
-        <a class="btn btn-ghost" href="#how">See how it thinks</a>
+        <a class="cta-circle" href="#how">
+          <span class="circle"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>See how it thinks</span>
+        </a>
       </div>
     </div>
   </section>
@@ -199,6 +216,10 @@
     <div class="container">
       <p class="manifesto-mark reveal">◆</p>
       <blockquote class="manifesto-quote reveal d1">Regret is a budgeting category.<br>We're removing it.</blockquote>
+      <a class="cta-circle cta-circle-dark reveal d2" href="#demo">
+        <span class="circle"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <span>Try the demo</span>
+      </a>
     </div>
   </section>
 
@@ -210,6 +231,10 @@
         <h2>Your statement is leaking. We find the holes.</h2>
         <p class="lede">Upload last month's statement and the AI reads every line: the subscriptions you forgot, the fees you never agreed to notice, the patterns that quietly drain the account. Then it tells you what each leak is worth.</p>
         <p class="stage-tag leak-stage">Arriving with CSV upload, stage 2</p>
+        <a class="cta-circle cta-circle-dark leak-cta" href="#demo">
+          <span class="circle"><svg viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12m0 0l-5-5m5 5l-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span>Run your own numbers</span>
+        </a>
       </div>
       <div class="leak-report reveal d1">
         <div class="leak-report-head">
