@@ -8,11 +8,12 @@
   <meta property="og:title" content="Ask Before You Spend">
   <meta property="og:description" content="Can I afford this? Get a real answer, with the math shown, before the money leaves your account.">
   <meta property="og:type" content="website">
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=2000&q=70">
+  <meta property="og:image" content="https://raw.githubusercontent.com/iamBolu/SavingsApp/main/assets/og-image.jpg">
+  <link rel="preload" as="image" href="assets/hero-highlands.jpg">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23191713'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='none' stroke='%23FAF6EF' stroke-opacity='0.4'/%3E%3Ctext x='16' y='22.5' font-family='Georgia,serif' font-size='17' font-weight='600' fill='%23E8A33D' text-anchor='middle'%3E%3F%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -32,6 +33,7 @@
         <a href="#how">How it works</a>
         <a href="#questions">What you can ask</a>
         <a href="#app">The app</a>
+        <a href="#leaks">Leak finder</a>
         <a href="#roadmap">Roadmap</a>
         <a class="nav-cta" href="#demo">Try the demo</a>
       </nav>
@@ -45,6 +47,7 @@
   <section class="hero" id="top">
     <!-- photo + warm scrim live in their own layer so text stays legible -->
     <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-mist" aria-hidden="true"></div>
     <div class="container hero-inner">
       <p class="eyebrow reveal">◆&nbsp;&nbsp;Your money, consulted first</p>
       <h1 class="reveal d1">Ask before you spend.</h1>
@@ -73,12 +76,18 @@
         <div class="chat-body" id="chatBody" aria-live="polite">
           <!-- messages injected by js -->
         </div>
+        <form class="ask-form" id="askForm" autocomplete="off">
+          <input class="ask-input" id="askInput" type="text" maxlength="90"
+                 placeholder="Type your own: can I afford a $60 hoodie?"
+                 aria-label="Ask your own affordability question">
+          <button class="btn ask-btn" type="submit">Ask</button>
+        </form>
       </div>
     </div>
   </div>
 
   <!-- ============ THE FLIP ============ -->
-  <section class="section section-cream" id="how">
+  <section class="section section-cream has-ghost" data-ghost="01" id="how">
     <div class="container split">
       <div class="split-lead">
         <p class="kicker">01 · The flip</p>
@@ -112,7 +121,7 @@
   </section>
 
   <!-- ============ WHAT YOU CAN ASK ============ -->
-  <section class="section section-cream section-tight" id="questions">
+  <section class="section section-cream section-tight has-ghost" data-ghost="02" id="questions">
     <div class="container">
       <div class="q-head">
         <p class="kicker">02 · What you can ask</p>
@@ -130,7 +139,7 @@
   </section>
 
   <!-- ============ APP + BANK THEMING ============ -->
-  <section class="section section-ink" id="app">
+  <section class="section section-ink has-ghost" data-ghost="03" id="app">
     <div class="container">
       <div class="app-head">
         <div>
@@ -185,11 +194,49 @@
     </div>
   </section>
 
+  <!-- ============ MANIFESTO ============ -->
+  <section class="manifesto section-cream" aria-label="Our belief">
+    <div class="container">
+      <p class="manifesto-mark reveal">◆</p>
+      <blockquote class="manifesto-quote reveal d1">Regret is a budgeting category.<br>We're removing it.</blockquote>
+    </div>
+  </section>
+
+  <!-- ============ LEAK FINDER ============ -->
+  <section class="section section-cream has-ghost" data-ghost="04" id="leaks">
+    <div class="container split">
+      <div class="split-lead">
+        <p class="kicker">04 · The leak finder</p>
+        <h2>Your statement is leaking. We find the holes.</h2>
+        <p class="lede">Upload last month's statement and the AI reads every line: the subscriptions you forgot, the fees you never agreed to notice, the patterns that quietly drain the account. Then it tells you what each leak is worth.</p>
+        <p class="stage-tag leak-stage">Arriving with CSV upload, stage 2</p>
+      </div>
+      <div class="leak-report reveal d1">
+        <div class="leak-report-head">
+          <span class="leak-title">June statement, analyzed</span>
+          <span class="leak-count">5 leaks found</span>
+        </div>
+        <ul class="leak-list">
+          <li><div><strong>Crave subscription</strong><span>No sign-ins for 6 months</span></div><span class="leak-amt">$19.99/mo</span></li>
+          <li><div><strong>Spotify price creep</strong><span>Up from $10.99 since March</span></div><span class="leak-amt">$3.00/mo</span></li>
+          <li><div><strong>Monthly account fee</strong><span>A no-fee account does the same job</span></div><span class="leak-amt">$16.95/mo</span></li>
+          <li><div><strong>Late-night delivery pattern</strong><span>Thursdays, 9 to 11pm, four times</span></div><span class="leak-amt">$63.40/mo</span></li>
+          <li><div><strong>NSF fee, Jun 28</strong><span>One nudge before rent would've caught it</span></div><span class="leak-amt">$48.00 once</span></li>
+        </ul>
+        <div class="leak-total">
+          <span>Recoverable every month</span>
+          <span class="leak-total-amt">$103.34</span>
+        </div>
+        <p class="leak-note">That's the Japan trip funded six weeks sooner.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ============ ROADMAP ============ -->
-  <section class="section section-cream" id="roadmap">
+  <section class="section section-cream has-ghost" data-ghost="05" id="roadmap">
     <div class="container">
       <div class="q-head">
-        <p class="kicker">04 · Getting your data in</p>
+        <p class="kicker">05 · Getting your data in</p>
         <h2>Three stages, zero busywork.</h2>
       </div>
       <div class="stages">
