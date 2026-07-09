@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ask Before You Spend — Can I afford this?</title>
+  <meta name="description" content="A personal finance assistant that answers one question — can I afford this? — before you spend, not after.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23191713'/%3E%3Ccircle cx='16' cy='16' r='10.5' fill='none' stroke='%23FAF6EF' stroke-opacity='0.4'/%3E%3Ctext x='16' y='22.5' font-family='Georgia,serif' font-size='17' font-weight='600' fill='%23E8A33D' text-anchor='middle'%3E%3F%3C/text%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="Ask Before You Spend — home">
+        <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2.5"/>
+          <circle cx="16" cy="16" r="9.5" fill="none" stroke="currentColor" stroke-width="0.8" opacity="0.35"/>
+          <text x="16" y="21.5" font-family="Fraunces, Georgia, serif" font-size="15" font-weight="600" fill="#E8A33D" text-anchor="middle">?</text>
+        </svg>
+        <span class="brand-name">Ask Before You Spend</span>
+      </a>
+      <nav class="site-nav" id="siteNav" aria-label="Primary">
+        <a href="#how">How it works</a>
+        <a href="#questions">What you can ask</a>
+        <a href="#app">The app</a>
+        <a href="#roadmap">Roadmap</a>
+        <a class="nav-cta" href="#cta">Try the demo</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ============ HERO ============ -->
+  <section class="hero" id="top">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow reveal">◆&nbsp;&nbsp;Your money, consulted first</p>
+        <h1 class="reveal d1">Ask before<br>you spend.</h1>
+        <p class="hero-sub reveal d2">Most budgeting apps tell you what you already spent. This one answers the only question that matters — <em>can I afford this?</em> — before the money leaves your account.</p>
+        <div class="hero-actions reveal d3">
+          <a class="btn btn-light" href="#cta">Try the demo</a>
+          <a class="btn btn-ghost" href="#how">See how it thinks</a>
+        </div>
+      </div>
+
+      <!-- Live chat demo -->
+      <div class="chat-panel reveal d2" id="chatPanel">
+        <div class="chat-titlebar">
+          <span class="chat-dot"></span>
+          <span class="chat-title">Chequing · $2,418.60</span>
+          <span class="chat-payday">Payday Fri, Jul&nbsp;17</span>
+        </div>
+        <div class="chat-scenarios" role="tablist" aria-label="Example questions">
+          <button class="chip is-active" data-scenario="airpods" role="tab" aria-selected="true">AirPods · $329</button>
+          <button class="chip" data-scenario="dinner" role="tab" aria-selected="false">Dinner out · $85</button>
+          <button class="chip" data-scenario="flight" role="tab" aria-selected="false">Flight · $1,429</button>
+        </div>
+        <div class="chat-body" id="chatBody" aria-live="polite">
+          <!-- messages injected by js -->
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ THE FLIP ============ -->
+  <section class="section section-cream" id="how">
+    <div class="container split">
+      <div class="split-lead">
+        <p class="kicker">01 · The flip</p>
+        <h2>Budgeting apps are rearview mirrors.</h2>
+        <p class="lede">They show you where the money went — after it's gone. Ask Before You Spend looks forward instead: it checks the road ahead of every purchase, so regret never makes it to your statement.</p>
+      </div>
+      <ol class="num-list">
+        <li class="reveal">
+          <span class="num-badge">01</span>
+          <div>
+            <h3>You ask, in plain words</h3>
+            <p>"Can I afford new AirPods this weekend?" No categories, no spreadsheets — just the question you were already asking yourself.</p>
+          </div>
+        </li>
+        <li class="reveal d1">
+          <span class="num-badge">02</span>
+          <div>
+            <h3>It does the honest math</h3>
+            <p>Balance minus the bills due before payday, minus what's reserved for your goals, weighed against how you've actually been spending.</p>
+          </div>
+        </li>
+        <li class="reveal d2">
+          <span class="num-badge">03</span>
+          <div>
+            <h3>You get a straight answer</h3>
+            <p>Yes, not yet, or wait until Friday — with the reasoning shown, so the answer is one you can trust and argue with.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ============ WHAT YOU CAN ASK ============ -->
+  <section class="section section-cream section-tight" id="questions">
+    <div class="container">
+      <div class="q-head">
+        <p class="kicker">02 · What you can ask</p>
+        <h2>One assistant, six honest answers.</h2>
+      </div>
+      <ul class="q-grid">
+        <li class="q-item reveal"><span class="q-mark">?</span>Can I afford this purchase right now?</li>
+        <li class="q-item reveal d1"><span class="q-mark">?</span>How much do I safely have to spend this week?</li>
+        <li class="q-item reveal d2"><span class="q-mark">?</span>What happens to my balance if I buy this today?</li>
+        <li class="q-item reveal"><span class="q-mark">?</span>Am I on track for my savings goal?</li>
+        <li class="q-item reveal d1"><span class="q-mark">?</span>What are my biggest expenses this month?</li>
+        <li class="q-item reveal d2"><span class="q-mark">?</span>Do I have enough before my next payday?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ APP + BANK THEMING ============ -->
+  <section class="section section-ink" id="app">
+    <div class="container">
+      <div class="app-head">
+        <div>
+          <p class="kicker kicker-light">03 · The app</p>
+          <h2>It dresses like your bank.</h2>
+          <p class="lede lede-light">Familiarity is trust. The interface adapts to the brand colours of the bank you actually use — pick yours and watch it change.</p>
+        </div>
+        <div class="bank-switch" role="group" aria-label="Choose your bank theme">
+          <button class="bank-chip is-active" data-bank="default">Neutral</button>
+          <button class="bank-chip" data-bank="rbc">RBC</button>
+          <button class="bank-chip" data-bank="td">TD</button>
+          <button class="bank-chip" data-bank="bmo">BMO</button>
+          <button class="bank-chip" data-bank="scotia">Scotiabank</button>
+          <button class="bank-chip" data-bank="tangerine">Tangerine</button>
+          <button class="bank-chip" data-bank="chase">Chase</button>
+          <button class="bank-chip" data-bank="cibc">CIBC</button>
+        </div>
+      </div>
+
+      <div class="app-mock" id="appMock" data-bank="default">
+        <div class="mock-topbar">
+          <span class="mock-brandbar"></span>
+          <span class="mock-bank" id="mockBankName">Your Bank</span>
+          <span class="mock-account">Chequing ···4821</span>
+        </div>
+        <div class="mock-grid">
+          <div class="mock-card mock-balance">
+            <p class="balance-label">Safe to spend until payday</p>
+            <p class="balance-amount amount-safe">$1,334.60</p>
+            <p class="mock-note">Balance <strong>$2,418.60</strong> − bills <strong>$684.00</strong> − reserved savings <strong>$400.00</strong></p>
+            <button class="btn mock-cta" type="button">Ask about a purchase</button>
+          </div>
+          <div class="mock-card">
+            <p class="mock-card-title">Bills before payday</p>
+            <ul class="bill-list">
+              <li><span>Rent share</span><span class="bill-date">Jul 12</span><span class="bill-amt">$520.00</span></li>
+              <li><span>Phone</span><span class="bill-date">Jul 13</span><span class="bill-amt">$64.00</span></li>
+              <li><span>Internet</span><span class="bill-date">Jul 14</span><span class="bill-amt">$88.01</span></li>
+              <li><span>Spotify</span><span class="bill-date">Jul 14</span><span class="bill-amt">$11.99</span></li>
+            </ul>
+          </div>
+          <div class="mock-card">
+            <p class="mock-card-title">Savings goal · Japan trip</p>
+            <p class="goal-figures"><span class="goal-now">$2,150</span> <span class="goal-of">of $3,500</span></p>
+            <div class="goal-bar" role="progressbar" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100" aria-label="Japan trip savings progress">
+              <span class="goal-fill" style="width:61%"></span>
+            </div>
+            <p class="mock-note">$400/mo reserved · on track for Nov 2026</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ ROADMAP ============ -->
+  <section class="section section-cream" id="roadmap">
+    <div class="container">
+      <div class="q-head">
+        <p class="kicker">04 · Getting your data in</p>
+        <h2>Three stages, zero busywork.</h2>
+      </div>
+      <div class="stages">
+        <article class="stage reveal">
+          <p class="stage-tag stage-now">Now — prototype</p>
+          <h3><span class="stage-num">1</span>Manual entry</h3>
+          <p>Type in your balance, bills, and goals once. Two minutes of setup, and the assistant can already answer.</p>
+        </article>
+        <article class="stage reveal d1">
+          <p class="stage-tag">Next</p>
+          <h3><span class="stage-num">2</span>CSV upload</h3>
+          <p>Export from your bank, drop the file here. The AI reads and categorises every transaction automatically.</p>
+        </article>
+        <article class="stage reveal d2">
+          <p class="stage-tag">Then</p>
+          <h3><span class="stage-num">3</span>Live connection</h3>
+          <p>Connect through Plaid — automatic, always current, covering 12,000+ banks and credit unions.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CTA ============ -->
+  <section class="section section-ink cta" id="cta">
+    <div class="container cta-inner">
+      <h2>The next time your thumb<br>hovers over “Buy now” —</h2>
+      <p class="lede lede-light">ask first. It takes four seconds and it knows about your rent.</p>
+      <a class="btn btn-light btn-lg" href="#top">Try the demo</a>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Ask Before You Spend</p>
+      <p class="footer-tag">Built to be asked, not audited.</p>
+      <nav aria-label="Footer">
+        <a href="#how">How it works</a>
+        <a href="#app">The app</a>
+        <a href="logos.html">Logo studies</a>
+      </nav>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
